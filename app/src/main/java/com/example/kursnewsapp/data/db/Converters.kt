@@ -1,7 +1,7 @@
 package com.example.kursnewsapp.data.db
 
 import androidx.room.TypeConverter
-import com.example.kursnewsapp.data.Source
+import com.example.kursnewsapp.domain.Source
 
 
 class Converters {
