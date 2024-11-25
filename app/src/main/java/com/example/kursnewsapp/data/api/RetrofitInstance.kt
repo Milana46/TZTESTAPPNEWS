@@ -1,6 +1,6 @@
-package com.example.kursnewsapp.api
+package com.example.kursnewsapp.data.api
 
-import com.example.kursnewsapp.util.Constants
+import com.example.kursnewsapp.presentation.util.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

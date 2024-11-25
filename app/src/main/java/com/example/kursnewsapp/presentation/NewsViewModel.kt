@@ -1,4 +1,4 @@
-package com.example.kursnewsapp.ui.fragments
+package com.example.kursnewsapp.presentation
 
 import android.app.Application
 import android.content.Context
@@ -8,16 +8,16 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.kursnewsapp.models.Article
-import com.example.kursnewsapp.models.NewsResponse
-import com.example.kursnewsapp.repository.NewsRepository
-import com.example.kursnewsapp.util.Resource
+import com.example.kursnewsapp.domain.Article
+import com.example.kursnewsapp.data.NewsResponse
+import com.example.kursnewsapp.data.repository.NewsRepository
+import com.example.kursnewsapp.presentation.util.Resource
+import com.example.kursnewsapp.usecasses.NewsInterface
 import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.Response
-import java.util.Locale.IsoCountryCode
 
-class NewsViewModel(app: Application, private val newsRepository: NewsRepository) : AndroidViewModel(app) {
+class NewsViewModel(app: Application, private val newsRepository: NewsInterface) : AndroidViewModel(app) {
 
     val headlines: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var headlinesPage = 1

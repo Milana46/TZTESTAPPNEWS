@@ -1,20 +1,18 @@
-package com.example.kursnewsapp.db
+package com.example.kursnewsapp.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.example.kursnewsapp.models.Article
-import java.time.chrono.HijrahChronology.INSTANCE
+import com.example.kursnewsapp.domain.Article
 
 
 @Database(entities = [Article::class], version=1)
 @TypeConverters(Converters::class)
  abstract class DataBaseArticle:RoomDatabase() {
 
-    abstract fun dao():ArticleDao
+    abstract fun dao(): ArticleDao
 
      companion object {
 

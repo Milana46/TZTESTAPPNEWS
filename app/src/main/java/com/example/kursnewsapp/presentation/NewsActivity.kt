@@ -1,16 +1,14 @@
-package com.example.kursnewsapp.ui.fragments
+package com.example.kursnewsapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.kursnewsapp.R
-import com.example.kursnewsapp.adapter.NewsAdapter
 import com.example.kursnewsapp.databinding.ActivityNewsBinding
-import com.example.kursnewsapp.db.DataBaseArticle
-import com.example.kursnewsapp.repository.NewsRepository
+import com.example.kursnewsapp.data.db.DataBaseArticle
+import com.example.kursnewsapp.data.repository.NewsRepository
 import retrofit2.Retrofit
 
 class NewsActivity : AppCompatActivity() {
@@ -27,8 +25,8 @@ class NewsActivity : AppCompatActivity() {
 
 
 
-        val newsRepository=NewsRepository(DataBaseArticle.getDatabase(this))
-        val viewModelProviderFactory=NewsViewModelProviderFactory(application,newsRepository)
+        val newsRepository= NewsRepository(DataBaseArticle.getDatabase(this))
+        val viewModelProviderFactory= NewsViewModelProviderFactory(application,newsRepository)
         newsViewModel=ViewModelProvider(this,viewModelProviderFactory).get(NewsViewModel::class.java)
 
 

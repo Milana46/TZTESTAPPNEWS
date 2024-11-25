@@ -1,4 +1,4 @@
-package com.example.kursnewsapp.util
+package com.example.kursnewsapp.presentation.util
 
 class Constants {
 

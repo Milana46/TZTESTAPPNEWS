@@ -1,4 +1,4 @@
-package com.example.kursovaya.ui.fragments
+package com.example.kursnewsapp.presentation.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -17,12 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kursnewsapp.R
 import com.example.kursnewsapp.R.id.action_headlinesFragment_to_articleFragment
-import com.example.kursnewsapp.adapter.NewsAdapter
+import com.example.kursnewsapp.presentation.adapters.NewsAdapter
 import com.example.kursnewsapp.databinding.FragmentHeadlinesBinding
-import com.example.kursnewsapp.ui.fragments.NewsActivity
-import com.example.kursnewsapp.ui.fragments.NewsViewModel
-import com.example.kursnewsapp.util.Constants
-import com.example.kursnewsapp.util.Resource
+import com.example.kursnewsapp.presentation.NewsActivity
+import com.example.kursnewsapp.presentation.NewsViewModel
+import com.example.kursnewsapp.presentation.util.Constants
+import com.example.kursnewsapp.presentation.util.Resource
 
 @Suppress("NAME_SHADOWING")
 class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {

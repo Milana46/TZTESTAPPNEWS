@@ -1,4 +1,4 @@
-package com.example.kursnewsapp.adapter
+package com.example.kursnewsapp.presentation.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kursnewsapp.R
-import com.example.kursnewsapp.models.Article
+import com.example.kursnewsapp.domain.Article
 
 class NewsAdapter(private val context: Context) : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 

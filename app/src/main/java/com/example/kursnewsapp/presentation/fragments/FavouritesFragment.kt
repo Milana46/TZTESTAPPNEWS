@@ -1,20 +1,16 @@
-package com.example.kursovaya.ui.fragments
+package com.example.kursnewsapp.presentation.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.kursnewsapp.R
-import com.example.kursnewsapp.adapter.NewsAdapter
+import com.example.kursnewsapp.presentation.adapters.NewsAdapter
 import com.example.kursnewsapp.databinding.FragmentFavouritesBinding
-import com.example.kursnewsapp.ui.fragments.NewsActivity
-import com.example.kursnewsapp.ui.fragments.NewsViewModel
-import com.google.android.material.snackbar.Snackbar
+import com.example.kursnewsapp.presentation.NewsActivity
+import com.example.kursnewsapp.presentation.NewsViewModel
 
 class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 

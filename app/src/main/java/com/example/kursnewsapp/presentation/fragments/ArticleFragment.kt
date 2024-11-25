@@ -1,4 +1,4 @@
-package com.example.kursovaya.ui.fragments
+package com.example.kursnewsapp.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.kursnewsapp.R
 import com.example.kursnewsapp.databinding.FragmentArticleBinding
-import com.example.kursnewsapp.ui.fragments.NewsActivity
-import com.example.kursnewsapp.ui.fragments.NewsViewModel
-import com.google.android.material.snackbar.Snackbar
+import com.example.kursnewsapp.presentation.NewsActivity
+import com.example.kursnewsapp.presentation.NewsViewModel
 
 class ArticleFragment : Fragment(R.layout.fragment_article) {
     private lateinit var newsViewModel: NewsViewModel

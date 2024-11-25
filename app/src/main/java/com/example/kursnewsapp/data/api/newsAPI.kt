@@ -1,8 +1,8 @@
-package com.example.kursnewsapp.api
+package com.example.kursnewsapp.data.api
 
 
-import com.example.kursnewsapp.models.NewsResponse
-import com.example.kursnewsapp.util.Constants
+import com.example.kursnewsapp.data.NewsResponse
+import com.example.kursnewsapp.presentation.util.Constants
 import retrofit2.Response
 
 import retrofit2.http.GET
@@ -18,6 +18,6 @@ interface newsAPI {
         @Query("page")
         pageNumber:Int=1,
         @Query("apiKey")
-        apiKey: String=Constants.API_KEY
+        apiKey: String= Constants.API_KEY
     ):Response<NewsResponse>
 }
