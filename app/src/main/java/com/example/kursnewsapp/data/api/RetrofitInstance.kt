@@ -10,11 +10,11 @@ class RetrofitInstance {
 
     companion object {
 
-        private val retrofit by lazy{
-            val logging=HttpLoggingInterceptor()
-            logging.level=HttpLoggingInterceptor.Level.BODY
+        private val retrofit by lazy {
+            val logging = HttpLoggingInterceptor()
+            logging.level = HttpLoggingInterceptor.Level.BODY
 
-            val client=OkHttpClient.Builder().addInterceptor(logging).build()
+            val client = OkHttpClient.Builder().addInterceptor(logging).build()
 
             Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
@@ -24,7 +24,7 @@ class RetrofitInstance {
         }
 
         val api by lazy {
-            retrofit.create(newsAPI::class.java)
+            retrofit.create(NewsAPI::class.java)
         }
     }
 }

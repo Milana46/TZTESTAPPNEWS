@@ -1,9 +1,9 @@
 package com.example.kursnewsapp
 
 
-import com.example.kursnewsapp.data.api.newsAPI
-import com.example.kursnewsapp.domain.Article
-import com.example.kursnewsapp.domain.Source
+import com.example.kursnewsapp.data.api.NewsAPI
+import com.example.kursnewsapp.data.db.Article
+import com.example.kursnewsapp.data.db.Source
 import com.example.kursnewsapp.presentation.util.Constants
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class NewsApiTest {
 
-    private lateinit var Api: newsAPI
+    private lateinit var Api: NewsAPI
 
 
     @Before
@@ -29,7 +29,7 @@ class NewsApiTest {
             .build()
 
         val api by lazy {
-            ret.create(newsAPI::class.java)
+            ret.create(NewsAPI::class.java)
         }
         Api = api
 
@@ -149,7 +149,7 @@ class ArticleUnitTest {
                 title = "Title4",
                 url = "https://url4.com",
                 urlToImage = "https://image4.com"
-            ),Article(
+            ), Article(
                 key = 5,
                 author = "Author5",
                 content = "Content5",

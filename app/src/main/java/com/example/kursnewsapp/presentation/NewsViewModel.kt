@@ -2,122 +2,47 @@ package com.example.kursnewsapp.presentation
 
 import android.app.Application
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.kursnewsapp.domain.Article
+import com.example.kursnewsapp.data.db.Article
 import com.example.kursnewsapp.data.NewsResponse
-import com.example.kursnewsapp.data.repository.NewsRepository
 import com.example.kursnewsapp.presentation.util.Resource
-import com.example.kursnewsapp.usecasses.NewsInterface
+import com.example.kursnewsapp.domain.NewsInterface
+import com.example.kursnewsapp.usecasses.HeadlinesCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import okio.IOException
-import retrofit2.Response
 
-class NewsViewModel(app: Application, private val newsRepository: NewsInterface) : AndroidViewModel(app) {
+class NewsViewModel(app: Application, private val newsRepository: NewsInterface, private val headlinesCase: HeadlinesCase) :
+    AndroidViewModel(app) {
 
-    val headlines: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
-    var headlinesPage = 1
+    val headlines: StateFlow<Resource<NewsResponse>> = headlinesCase.headlines()
 
-    private val _snackbarMessage = MutableLiveData<String>()
-    val snackbarMessage: LiveData<String> get() = _snackbarMessage
+    private val _snackbarMessage = MutableStateFlow<String>("")
 
-    var headlinesResponse: NewsResponse? = null
-
-
-
-    init{
+    init {
         getHeadlines("us")
     }
 
-
-    fun getHeadlines(countryCode: String)=viewModelScope.launch {
-        headlinesInternet(countryCode)
+    private fun getHeadlinesContext(context: Context, countryCode: String) = viewModelScope.launch {
+        headlinesCase.headlinesInternet(context, newsRepository, countryCode)
     }
 
-    private fun handleHeadlineResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
-        if (response.isSuccessful) {
-            response.body()?.let { resultResponse ->
-                headlinesPage++
-                if (headlinesResponse == null) {
-                    headlinesResponse = resultResponse
-                } else {
-                    val oldArticles = headlinesResponse?.articles ?: mutableListOf()
-                    val newArticles = resultResponse.articles
-                    oldArticles.addAll(newArticles)
-                    headlinesResponse?.articles = oldArticles
-                }
-                return Resource.Success(headlinesResponse ?: resultResponse)
-            }
-        }
-        return Resource.Error(response.message())
+    fun getHeadlines(countryCode: String) {
+        getHeadlinesContext(this.getApplication(), countryCode)
     }
 
-
-//    fun addToFavorites(article: Article)=viewModelScope.launch {
-//        newsRepository.insertArticle(article)
-//
-//    }
-//    fun deleteNews(article:Article)=viewModelScope.launch {
-//        newsRepository.deleteArticle(article)
-//    }
+    fun getAll() = newsRepository.getAllArticle()
+    fun page() = headlinesCase.headlinesPage
 
     fun toggleFavorite(article: Article) = viewModelScope.launch {
         val isFavorite = newsRepository.isArticleFavorite(article.key ?: -1)
-        System.out.println(article)
-        System.out.println(isFavorite)
         if (isFavorite) {
             newsRepository.deleteArticle(article)
-            _snackbarMessage.postValue("Removed from favorites")
+            _snackbarMessage.value = "Removed from favorites"
         } else {
             newsRepository.insertArticle(article)
-            _snackbarMessage.postValue("Added to favorites")
+            _snackbarMessage.value = "Added to favorites"
         }
     }
-
-
-
-
-
-    fun getAll()=newsRepository.getAllArticle()
-
-
-    fun internetConnection(context: Context):Boolean{
-        (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).apply{
-            return getNetworkCapabilities(activeNetwork)?.run{
-                when{
-                    hasTransport(NetworkCapabilities.TRANSPORT_WIFI)->true
-                    hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)->true
-                    hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)->true
-                    else->false
-                }
-            }?: false
-        }
-
-
-    }
-
-    private suspend fun headlinesInternet(countryCode:String){
-        headlines.postValue(Resource.Loading())
-        try{
-            if(internetConnection(this.getApplication())){
-                val response=newsRepository.getHeadlines(countryCode,headlinesPage)
-                headlines.postValue(handleHeadlineResponse(response))
-            }
-            else{
-                headlines.postValue(Resource.Error("No Internet connection"))
-            }
-        }
-        catch(t:Throwable){
-            when(t){
-                is IOException->headlines.postValue(Resource.Error("Unable to connect"))
-                else->headlines.postValue(Resource.Error("No signal"))
-            }
-        }
-    }
-
-
 }

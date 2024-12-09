@@ -14,28 +14,20 @@ import retrofit2.Retrofit
 class NewsActivity : AppCompatActivity() {
 
     lateinit var newsViewModel: NewsViewModel
-    private lateinit var binding:ActivityNewsBinding
-    lateinit var retr:Retrofit
-
+    private lateinit var binding: ActivityNewsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityNewsBinding.inflate(layoutInflater)
+        binding = ActivityNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        DI.inject(application, this);
 
-
-        val newsRepository= NewsRepository(DataBaseArticle.getDatabase(this))
-        val viewModelProviderFactory= NewsViewModelProviderFactory(application,newsRepository)
-        newsViewModel=ViewModelProvider(this,viewModelProviderFactory).get(NewsViewModel::class.java)
-
-
-        val navHostFragment=supportFragmentManager.findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
-        val navController=navHostFragment.navController
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
     }
-
-
 }

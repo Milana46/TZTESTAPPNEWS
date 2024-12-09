@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kursnewsapp.R
@@ -11,6 +12,8 @@ import com.example.kursnewsapp.presentation.adapters.NewsAdapter
 import com.example.kursnewsapp.databinding.FragmentFavouritesBinding
 import com.example.kursnewsapp.presentation.NewsActivity
 import com.example.kursnewsapp.presentation.NewsViewModel
+import com.example.kursnewsapp.presentation.util.Constants.Companion.ARTICLE_KEY
+import kotlinx.coroutines.launch
 
 class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 
@@ -26,18 +29,16 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
         setupFavoritesRecycler()
 
         newsAdapter.setOnItemClickListener { article ->
-            val bundle = Bundle().apply {
-                putSerializable("article", article)
-            }
+            val bundle = Bundle()
+            bundle.putSerializable(ARTICLE_KEY, article)
             findNavController().navigate(R.id.action_favouritesFragment_to_articleFragment, bundle)
         }
 
-
-
-
-        newsViewModel.getAll().observe(viewLifecycleOwner, Observer { articles ->
-            newsAdapter.differ.submitList(articles)
-        })
+        lifecycleScope.launch {
+            newsViewModel.getAll().collect { articles ->
+                newsAdapter.differ.submitList(articles.map { it.toModel() })
+            }
+        }
     }
 
     private fun setupFavoritesRecycler() {
