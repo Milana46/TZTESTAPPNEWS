@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kursnewsapp.R
-import com.example.kursnewsapp.domain.Article
+import com.example.kursnewsapp.data.db.Article
+import com.example.kursnewsapp.domain.ArticleModel
 
-class NewsAdapter(private val context: Context) : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class NewsAdapter(private val context: Context) :
+    RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val articleImage: ImageView = itemView.findViewById(R.id.articleImage)
@@ -31,12 +33,12 @@ class NewsAdapter(private val context: Context) : RecyclerView.Adapter<NewsAdapt
         }
     }
 
-    private val differCallBack = object : DiffUtil.ItemCallback<Article>() {
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+    private val differCallBack = object : DiffUtil.ItemCallback<ArticleModel>() {
+        override fun areItemsTheSame(oldItem: ArticleModel, newItem: ArticleModel): Boolean {
             return oldItem.url == newItem.url
         }
 
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+        override fun areContentsTheSame(oldItem: ArticleModel, newItem: ArticleModel): Boolean {
             return oldItem == newItem
         }
     }
@@ -53,7 +55,7 @@ class NewsAdapter(private val context: Context) : RecyclerView.Adapter<NewsAdapt
         return differ.currentList.size
     }
 
-    private var onItemClickListener: ((Article) -> Unit)? = null
+    private var onItemClickListener: ((ArticleModel) -> Unit)? = null
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val listNews = differ.currentList[position]
@@ -67,7 +69,7 @@ class NewsAdapter(private val context: Context) : RecyclerView.Adapter<NewsAdapt
     }
 
 
-    fun setOnItemClickListener(listener: (Article) -> Unit) {
+    fun setOnItemClickListener(listener: (ArticleModel) -> Unit) {
         onItemClickListener = listener
     }
 }

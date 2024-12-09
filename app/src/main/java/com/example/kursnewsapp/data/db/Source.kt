@@ -1,4 +1,4 @@
-package com.example.kursnewsapp.domain
+package com.example.kursnewsapp.data.db
 
 data class Source(
     val id: String,

@@ -9,13 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.kursnewsapp.R
 import com.example.kursnewsapp.databinding.FragmentArticleBinding
+import com.example.kursnewsapp.data.db.Article
 import com.example.kursnewsapp.presentation.NewsActivity
 import com.example.kursnewsapp.presentation.NewsViewModel
+import com.example.kursnewsapp.presentation.util.Constants.Companion.ARTICLE_KEY
 
 class ArticleFragment : Fragment(R.layout.fragment_article) {
     private lateinit var newsViewModel: NewsViewModel
     private val args: ArticleFragmentArgs by navArgs()
     private var _binding: FragmentArticleBinding? = null
+
+    val article = arguments?.getSerializable(ARTICLE_KEY) as? Article
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -39,12 +43,6 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
                 loadUrl(it)
             }
         }
-
-//        binding.fab.setOnClickListener {
-//            newsViewModel.addToFavorites(article)
-//            Snackbar.make(view, "Added to favorites", Snackbar.LENGTH_SHORT).show()
-//        }
-
 
         binding.fab.setOnClickListener {
             newsViewModel.toggleFavorite(article)

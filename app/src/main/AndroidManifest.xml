@@ -16,6 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.KursNewsApp"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.example.kursnewsapp.util.API_KEY"
+            android:value="@string/API_KEY"
+            />
+
         <activity
             android:name=".presentation.NewsActivity"
             android:exported="true">

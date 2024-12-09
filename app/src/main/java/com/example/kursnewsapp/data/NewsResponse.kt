@@ -1,9 +1,9 @@
 package com.example.kursnewsapp.data
 
-import com.example.kursnewsapp.domain.Article
+import com.example.kursnewsapp.domain.ArticleModel
 
 data class NewsResponse(
-    var articles: MutableList<Article>,
+    var articles: MutableList<ArticleModel>,
     val status: String,
-    val totalResults: Int
+    val totalResults: Int,
 )

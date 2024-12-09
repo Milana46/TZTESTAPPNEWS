@@ -1,15 +1,9 @@
 package com.example.kursnewsapp.domain
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.example.kursnewsapp.data.db.Source
 import java.io.Serializable
 
-
-@Entity(tableName = "article")
-data class Article(
-    @PrimaryKey(autoGenerate = true)
-    val key:Int,
-
+class ArticleModel (
     val author: String,
     val content: String,
     val description: String,
@@ -18,6 +12,4 @@ data class Article(
     val title: String,
     val url: String,
     val urlToImage: String
-):Serializable
-
-
+) : Serializable

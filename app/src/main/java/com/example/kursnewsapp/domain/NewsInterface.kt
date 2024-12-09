@@ -1,8 +1,8 @@
-package com.example.kursnewsapp.usecasses
+package com.example.kursnewsapp.domain
 
-import androidx.lifecycle.LiveData
 import com.example.kursnewsapp.data.NewsResponse
-import com.example.kursnewsapp.domain.Article
+import com.example.kursnewsapp.data.db.Article
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 interface NewsInterface  {
@@ -11,7 +11,6 @@ interface NewsInterface  {
     suspend fun isArticleFavorite(articleId: Int): Boolean
 
     suspend fun insertArticle(article: Article):Long
-    fun getAllArticle(): LiveData<List<Article>>
+    fun getAllArticle(): Flow<List<Article>>
     suspend fun deleteArticle(article: Article)
-
 }
